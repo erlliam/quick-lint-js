@@ -1,3 +1,5 @@
+# TEST
+
 # Building quick-lint-js
 
 ## For contributors
