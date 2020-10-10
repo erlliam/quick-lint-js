@@ -16,19 +16,26 @@
 
 name: check format
 on:
+  push:
   pull_request:
     types: [opened, synchronize]
-  push: {}
 
 jobs:
   check_format:
     name: check format
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
-      - uses: actions/checkout@v2
-        with: # @@@ https://frontside.com/blog/2020-05-26-github-actions-pull_request/
+      - name: push check out
+        if: ${{ github.event_name == 'push' }}
+        uses: actions/checkout@v2
+      - name: pull request check out
+        if: ${{ github.event_name == 'pull_request' }}
+        uses: actions/checkout@v2
+        with:
           ref: ${{ github.event.pull_request.head.sha }}
-      - run: clang-format --version
-      - run: ./tools/format
-      - run: git diff --exit-code
+      - name: clang format version
+        run: clang-format --version
+      - name: format script
+        run: ./tools/format
+      - name: git diff
+        run: git diff --exit-code
