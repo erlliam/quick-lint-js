@@ -1,4 +1,6 @@
 # Building quick-lint-js
+# Building quick-lint-js
+# Building quick-lint-js
 
 ## For contributors
 
