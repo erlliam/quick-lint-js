@@ -7,9 +7,9 @@ def main():
     file_paths = get_file_paths()
 
     for file_path in file_paths:
-        if file_path.startswith("vendor/") or file_path.startswith(
-            "benchmark/benchmark-lsp/corpus/"
-        ):
+        if file_path.startswith("vendor/"):
+            continue
+        elif file_path.startswith("benchmark/benchmark-lsp/corpus/"):
             continue
 
         if file_path.endswith((".c", ".cpp", ".h")):
@@ -21,7 +21,7 @@ def main():
         elif file_path.endswith((".go")):
             subprocess.run(["gofmt", "-w", file_path])
         elif file_path.endswith((".hs")):
-            print("Install Haskell hindent")
+            subprocess.run(["/home/altair/.local/bin/hindent", file_path])
 
 
 def get_file_paths():
